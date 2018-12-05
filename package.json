@@ -46,14 +46,15 @@
     "lodash": "^4.17.11"
   },
   "devDependencies": {
+    "@babel/cli": "^7.2.0",
+    "@babel/core": "^7.2.0",
+    "@babel/node": "^7.2.0",
     "@versett/versett-devtools": "^1.9.0",
-    "babel-cli": "^6.24.1",
-    "babel-core": "^6.26.3",
     "babel-eslint": "^10.0.1",
     "babel-preset-flow": "^6.23.0",
     "eslint": "^5.9.0",
-    "eslint-config-walmart": "^2.2.1",
     "eslint-config-prettier": "^3.3.0",
+    "eslint-config-walmart": "^2.2.1",
     "eslint-plugin-filenames": "^1.2.0",
     "eslint-plugin-flowtype": "^3.2.0",
     "eslint-plugin-import-order": "^2.1.4",
