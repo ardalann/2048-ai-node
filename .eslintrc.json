@@ -10,6 +10,7 @@
   },
   "plugins": ["jest", "flowtype", "prettier", "import-order"],
   "rules": {
+    "no-console": "off",
     "comma-dangle": ["error", "never"],
     "no-underscore-dangle": ["error", { "allowAfterThis": true }],
     "max-len": ["error", { "ignoreTrailingComments": true, "code": 100 }],
