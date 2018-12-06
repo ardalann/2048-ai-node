@@ -1,7 +1,10 @@
 // @flow
 
+const getPoints = require("./getPoints");
+
 const renderBoard = (board: Array<Array<number>>) => {
   process.stdout.write("\u001b[2J\u001b[0;0H"); // clear console
+  process.stdout.write(`Score: ${getPoints(board)}\n\n`);
   const maxTileWidth = Math.max(
     ...board.map((row: Array<number>) =>
       Math.max(...row.map((tile: number) => tile.toString().length))
@@ -23,7 +26,7 @@ const renderBoard = (board: Array<Array<number>>) => {
   const lastSeparator = `${`|${"_".repeat(
     // eslint-disable-next-line no-magic-numbers
     maxTileWidth + 2 * tilePadding
-  )}`.repeat(columns)}|\n`;
+  )}`.repeat(columns)}|\n\n`;
   process.stdout.write(firstSeparator);
   for (let row = 0; row < board.length; row++) {
     process.stdout.write(`|`);
@@ -31,7 +34,7 @@ const renderBoard = (board: Array<Array<number>>) => {
       process.stdout.write(
         `${board[row][column]
           .toString()
-          .replace(/^0$/, "9")
+          .replace(/^0$/, "")
           .padStart(maxTileWidth + tilePadding)}${" ".repeat(tilePadding)}|`
       );
     }
