@@ -1,6 +1,18 @@
 // @flow
 
-const NUM: number = 5;
+const keypress = require("keypress");
 
-// eslint-disable-next-line no-console
-console.log(`1-2-3-testing...${NUM}`);
+keypress(process.stdin);
+
+process.stdin.on(
+  "keypress",
+  (ch: ?string, key: { name: string, ctrl: boolean }) => {
+    console.log('got "keypress"', ch, key);
+    if (key && key.ctrl && key.name === "c") {
+      process.stdin.pause();
+    }
+  }
+);
+
+process.stdin.setRawMode(true);
+process.stdin.resume();

@@ -12,7 +12,7 @@
     "precommit": "versett-devtools precommit",
     "preparecommitmsg": "versett-devtools preparecommitmsg ${GIT_PARAMS}",
     "release": "yarn && yarn build && versett-devtools release --npm-publish",
-    "start": "nodemon --exec babel-node src/index.js",
+    "start": "babel-node src/index.js",
     "test": "yarn lint && jest --coverage",
     "test:ci": "yarn lint && jest && yarn check --integrity",
     "test:watch": "jest --watch"
@@ -44,6 +44,7 @@
   },
   "homepage": "https://github.com/ardalann/2048-ai-node#readme",
   "dependencies": {
+    "keypress": "^0.2.1",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
@@ -64,7 +65,6 @@
     "flow-bin": "^0.87.0",
     "flow-copy-source": "^2.0.2",
     "jest": "^23.4.1",
-    "nodemon": "^1.18.7",
     "prettier": "^1.5.2",
     "rimraf": "^2.6.1"
   },
