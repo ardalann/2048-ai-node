@@ -3,10 +3,10 @@
 const keypress = require("keypress");
 
 const generateBoard = require("./generateBoard");
-const addNewTileToBoard = require("./addNewTileToBoard");
-const renderScreen = require("./renderScreen");
-const shiftBoard = require("./shiftBoard");
 const getPossibleShifts = require("./getPossibleShifts");
+const activateAI = require("./activateAI");
+const addNewTileToBoard = require("./addNewTileToBoard");
+const playTurn = require("./playTurn");
 
 keypress(process.stdin);
 
@@ -15,7 +15,14 @@ addNewTileToBoard(board);
 
 let AISpeed = 0;
 
-renderScreen({ board, AISpeed, possibleShifts: getPossibleShifts(board) });
+playTurn({
+  board,
+  speed: AISpeed,
+  possibleShifts: getPossibleShifts(board),
+  shiftDirection: ""
+});
+
+let intervalRef: ?IntervalID;
 
 process.stdin.on(
   "keypress",
@@ -31,29 +38,30 @@ process.stdin.on(
       return;
     }
 
-    if (["1", "2", "3", "4", "5", "6", "7", "8", "9"].includes(char)) {
+    if (char && /^[1-9]$/.test(char)) {
       AISpeed = parseInt(char, 10);
+      if (intervalRef) {
+        clearInterval(intervalRef);
+      }
+      intervalRef = activateAI({
+        board,
+        speed: AISpeed
+      });
     } else if (char === "0") {
       AISpeed = 0;
+      if (intervalRef) {
+        clearInterval(intervalRef);
+      }
     }
 
-    const possibleShifts = getPossibleShifts(board);
+    const shiftDirection = AISpeed === 0 && key ? key.name : "";
 
-    const keyName = key ? key.name : "";
-    const shiftDirection = AISpeed ? "left" : keyName;
-
-    if (
-      (shiftDirection === "up" ||
-        shiftDirection === "down" ||
-        shiftDirection === "left" ||
-        shiftDirection === "right") &&
-      possibleShifts.includes(shiftDirection)
-    ) {
-      shiftBoard(board, shiftDirection);
-      addNewTileToBoard(board);
-    }
-
-    renderScreen({ board, AISpeed, possibleShifts });
+    playTurn({
+      board,
+      speed: AISpeed,
+      possibleShifts: getPossibleShifts(board),
+      shiftDirection
+    });
   }
 );
 
