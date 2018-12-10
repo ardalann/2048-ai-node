@@ -4,7 +4,7 @@ const keypress = require("keypress");
 
 const generateBoard = require("./generateBoard");
 const getPossibleShifts = require("./getPossibleShifts");
-const activateAI = require("./activateAI");
+const activateAI = require("./ai/activateAI");
 const addNewTileToBoard = require("./addNewTileToBoard");
 const playTurn = require("./playTurn");
 

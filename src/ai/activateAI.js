@@ -1,8 +1,9 @@
 // @flow
 
-const playTurn = require("./playTurn");
+const playTurn = require("../playTurn");
+const getPossibleShifts = require("../getPossibleShifts");
+
 const getBestPossibleMove = require("./getBestPossibleMove");
-const getPossibleShifts = require("./getPossibleShifts");
 
 type OptionsType = {
   board: Array<Array<number>>,
