@@ -1,10 +1,6 @@
 // @flow
 
-const getPoints = require("./getPoints");
-
 const renderBoard = (board: Array<Array<number>>) => {
-  process.stdout.write("\u001b[2J\u001b[0;0H"); // clear console
-  process.stdout.write(`Score: ${getPoints(board)}\n\n`);
   const maxTileWidth = Math.max(
     ...board.map((row: Array<number>) =>
       Math.max(...row.map((tile: number) => tile.toString().length))
