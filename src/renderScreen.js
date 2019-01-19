@@ -19,7 +19,10 @@ const renderScreen = ({ board, AISpeed, possibleShifts }: OptionsType) => {
           "The number will determine how fast the AI plays the game."
   );
 
-  process.stdout.write("\u001b[2J\u001b[0;0H"); // clear console
+  if (!process.env.DEBUG) {
+    process.stdout.write("\u001b[2J\u001b[0;0H"); // clear console
+  }
+
   process.stdout.write(`Score: ${getPoints(board)} | `);
   process.stdout.write(`AI: ${AISpeed > 0 ? AISpeed : "off"}\n\n`);
   renderBoard(board);
