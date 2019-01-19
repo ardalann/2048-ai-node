@@ -23,7 +23,7 @@ const activateAI = ({ board, speed }: OptionsType): ?IntervalID => {
     if (possibleShifts.length === 0) {
       clearInterval(intervalRef);
     }
-  }, 1000 / speed); // eslint-disable-line no-magic-numbers
+  }, 1000 / Math.pow(speed, 2)); // eslint-disable-line no-magic-numbers
 
   return intervalRef;
 };
