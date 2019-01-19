@@ -2,6 +2,7 @@
 
 const getPoints = require("./getPoints");
 const renderBoard = require("./renderBoard");
+const scoreBoard = require("./ai/scoreBoard");
 
 type OptionsType = {
   board: Array<Array<number>>,
@@ -23,8 +24,14 @@ const renderScreen = ({ board, AISpeed, possibleShifts }: OptionsType) => {
     process.stdout.write("\u001b[2J\u001b[0;0H"); // clear console
   }
 
-  process.stdout.write(`Score: ${getPoints(board)} | `);
-  process.stdout.write(`AI: ${AISpeed > 0 ? AISpeed : "off"}\n\n`);
+  process.stdout.write(`Score: ${getPoints(board)}`);
+  process.stdout.write(` | AI: ${AISpeed > 0 ? AISpeed : "off"}`);
+
+  if (process.env.DEBUG) {
+    process.stdout.write(` | Board score: ${scoreBoard({ board })}`);
+  }
+
+  process.stdout.write(`\n\n`);
   renderBoard(board);
 
   if (possibleShifts.length === 0) {
@@ -33,7 +40,7 @@ const renderScreen = ({ board, AISpeed, possibleShifts }: OptionsType) => {
     return;
   }
 
-  process.stdout.write(`\n${instuctions.join("\n")}`);
+  process.stdout.write(`\n${instuctions.join("\n")}\n`);
 };
 
 module.exports = renderScreen;
