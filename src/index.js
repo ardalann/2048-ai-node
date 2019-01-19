@@ -35,6 +35,11 @@ process.stdin.on(
   ) => {
     if (key && ((key.ctrl && key.name === "c") || key.name === "escape")) {
       process.stdin.pause();
+
+      if (intervalRef) {
+        clearInterval(intervalRef);
+      }
+
       return;
     }
 
