@@ -51,8 +51,10 @@ const isArrowRightPossible = (board: Array<Array<number>>) =>
     return emptyTileOnTheRight || hasSimilarAdjacentTiles;
   });
 
+type DirectionType = "up" | "down" | "left" | "right";
+
 const getPossibleShifts = (board: Array<Array<number>>) => {
-  const possibleMoves = [];
+  const possibleMoves: Array<DirectionType> = [];
 
   if (isArrowLeftPossible(board)) {
     possibleMoves.push("left");
