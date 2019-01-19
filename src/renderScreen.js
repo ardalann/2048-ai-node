@@ -28,8 +28,8 @@ const renderScreen = ({ board, AISpeed, possibleShifts }: OptionsType) => {
   renderBoard(board);
 
   if (possibleShifts.length === 0) {
-    process.stdout.write("\nGame over!");
-    process.stdin.pause();
+    process.stdout.write("Game over!");
+    process.stdout.write("\n\nPress Esc to exit.");
     return;
   }
 

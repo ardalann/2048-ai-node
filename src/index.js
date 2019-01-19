@@ -29,11 +29,11 @@ process.stdin.on(
   (
     char: ?string,
     key: ?{
-      name: "up" | "down" | "left" | "right" | "return" | string,
+      name: "up" | "down" | "left" | "right" | "return" | "escape" | string,
       ctrl: boolean
     }
   ) => {
-    if (key && key.ctrl && key.name === "c") {
+    if (key && ((key.ctrl && key.name === "c") || key.name === "escape")) {
       process.stdin.pause();
       return;
     }
