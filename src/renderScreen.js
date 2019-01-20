@@ -35,7 +35,9 @@ const renderScreen = ({
   process.stdout.write(` | AI: ${AISpeed > 0 ? AISpeed : "off"}`);
 
   if (process.env.DEBUG) {
-    process.stdout.write(` | Board score: ${scoreBoard({ board })}`);
+    process.stdout.write(
+      ` | Board score: ${Math.round(scoreBoard({ board }))}`
+    );
 
     if (aiProcessingTime) {
       process.stdout.write(` | AI took: ${aiProcessingTime}ms`);
