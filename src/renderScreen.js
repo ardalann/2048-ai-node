@@ -7,10 +7,16 @@ const scoreBoard = require("./ai/scoreBoard");
 type OptionsType = {
   board: Array<Array<number>>,
   AISpeed: number,
-  possibleShifts: Array<"up" | "down" | "left" | "right">
+  possibleShifts: Array<"up" | "down" | "left" | "right">,
+  aiProcessingTime?: number
 };
 
-const renderScreen = ({ board, AISpeed, possibleShifts }: OptionsType) => {
+const renderScreen = ({
+  board,
+  AISpeed,
+  possibleShifts,
+  aiProcessingTime
+}: OptionsType) => {
   const instuctions = [];
 
   instuctions.push(
@@ -30,6 +36,10 @@ const renderScreen = ({ board, AISpeed, possibleShifts }: OptionsType) => {
 
   if (process.env.DEBUG) {
     process.stdout.write(` | Board score: ${scoreBoard({ board })}`);
+
+    if (aiProcessingTime) {
+      process.stdout.write(` | AI took: ${aiProcessingTime}ms`);
+    }
   }
 
   process.stdout.write(`\n\n`);

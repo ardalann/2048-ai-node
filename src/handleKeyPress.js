@@ -26,37 +26,43 @@ const handleKeyPress = ({ board }: OptionsType) => (
     if (intervalRef) {
       clearInterval(intervalRef);
     }
-
-    return;
   } else if (AISpeed === 0 && key && key.name === "p") {
     const possibleShifts = getPossibleShifts(board);
+    const beforeAIProcessing = new Date().getTime();
     const shiftDirection = getBestPossibleMove({ board, possibleShifts });
-    playTurn({ board, possibleShifts, speed: 0, shiftDirection });
-  }
-
-  if (char && /^[1-9]$/.test(char)) {
-    AISpeed = parseInt(char, 10);
-    if (intervalRef) {
-      clearInterval(intervalRef);
-    }
-    intervalRef = activateAI({
+    const afterAIProcessing = new Date().getTime();
+    playTurn({
       board,
-      speed: AISpeed
+      possibleShifts,
+      speed: 0,
+      shiftDirection,
+      aiProcessingTime: afterAIProcessing - beforeAIProcessing
     });
-  } else if (char === "0") {
-    AISpeed = 0;
-    if (intervalRef) {
-      clearInterval(intervalRef);
+  } else {
+    if (char && /^[1-9]$/.test(char)) {
+      AISpeed = parseInt(char, 10);
+      if (intervalRef) {
+        clearInterval(intervalRef);
+      }
+      intervalRef = activateAI({
+        board,
+        speed: AISpeed
+      });
+    } else if (char === "0") {
+      AISpeed = 0;
+      if (intervalRef) {
+        clearInterval(intervalRef);
+      }
     }
+
+    const shiftDirection = AISpeed === 0 && key ? key.name : "";
+
+    playTurn({
+      board,
+      speed: AISpeed,
+      possibleShifts: getPossibleShifts(board),
+      shiftDirection
+    });
   }
-
-  const shiftDirection = AISpeed === 0 && key ? key.name : "";
-
-  playTurn({
-    board,
-    speed: AISpeed,
-    possibleShifts: getPossibleShifts(board),
-    shiftDirection
-  });
 };
 module.exports = handleKeyPress;

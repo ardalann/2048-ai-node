@@ -9,14 +9,16 @@ type OptionsType = {
   board: Array<Array<number>>,
   possibleShifts: Array<DirectionType>,
   shiftDirection: ?string,
-  speed: number
+  speed: number,
+  aiProcessingTime?: number
 };
 
 const playTurn = ({
   board,
   possibleShifts,
   speed,
-  shiftDirection
+  shiftDirection,
+  aiProcessingTime
 }: OptionsType) => {
   if (
     shiftDirection &&
@@ -30,7 +32,7 @@ const playTurn = ({
     addNewTileToBoard(board);
   }
 
-  renderScreen({ board, AISpeed: speed, possibleShifts });
+  renderScreen({ board, AISpeed: speed, possibleShifts, aiProcessingTime });
 };
 
 module.exports = playTurn;

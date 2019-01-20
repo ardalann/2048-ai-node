@@ -17,8 +17,16 @@ const activateAI = ({ board, speed }: OptionsType): ?IntervalID => {
 
   const intervalRef: IntervalID = setInterval(() => {
     const possibleShifts = getPossibleShifts(board);
+    const beforeAIProcessing = new Date().getTime();
     const shiftDirection = getBestPossibleMove({ board, possibleShifts });
-    playTurn({ board, possibleShifts, speed, shiftDirection });
+    const afterAIProcessing = new Date().getTime();
+    playTurn({
+      board,
+      possibleShifts,
+      speed,
+      shiftDirection,
+      aiProcessingTime: afterAIProcessing - beforeAIProcessing
+    });
 
     if (possibleShifts.length === 0) {
       clearInterval(intervalRef);
