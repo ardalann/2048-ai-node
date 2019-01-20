@@ -1,5 +1,6 @@
 // @flow
 
+const { HEURISTIC_MAX_DEPTH } = require("../config");
 const scorePossibleMove = require("./scorePossibleMove");
 
 type DirectionType = "up" | "down" | "left" | "right";
@@ -22,15 +23,17 @@ const getBestPossibleMove = ({
   const possibleShiftsScores = possibleShifts.map(
     (direction: DirectionType): PossibleShiftScoreType => ({
       d: direction,
-      s: scorePossibleMove({ board, move: direction })
+      s: scorePossibleMove({
+        board,
+        move: direction,
+        maxDepth: HEURISTIC_MAX_DEPTH
+      })
     })
   );
   const sortedShiftsScores = possibleShiftsScores.sort(
     (shiftA: PossibleShiftScoreType, shiftB: PossibleShiftScoreType) =>
       shiftB.s - shiftA.s
   );
-
-  // console.log("sortedShiftsScores", sortedShiftsScores);
 
   return sortedShiftsScores[0].d;
 };

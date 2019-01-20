@@ -1,17 +1,65 @@
 // @flow
 
-// const { CHANCE_OF_4 } = require("../config");
-const cloneBoard = require("../cloneBoard");
+const {
+  HEURISTIC_FACTOR_LOST_PENALTY,
+  HEURISTIC_FACTOR_MONOTONICITY_POWER,
+  HEURISTIC_FACTOR_MONOTONICITY_WEIGHT,
+  HEURISTIC_FACTOR_SUM_POWER,
+  HEURISTIC_FACTOR_SUM_WEIGHT,
+  HEURISTIC_FACTOR_MERGES_WEIGHT,
+  HEURISTIC_FACTOR_EMPTY_WEIGHT
+} = require("../config");
+const getPossibleShifts = require("../getPossibleShifts");
+const getEmptyTilesCount = require("./getEmptyTilesCount");
 
 type OptionsType = {
   board: Array<Array<number>>
 };
 
 const scoreBoard = ({ board }: OptionsType): number => {
-  const clonedBoard = cloneBoard(board);
-  // shiftBoard(clonedBoard, move);
+  const hasLost = getPossibleShifts(board).length > 0 ? 0 : 1;
 
-  return Math.random();
+  let monotonicityTop = 0;
+  for (let column = 0; column < board[0].length; column++) {
+    if (column === 0 || board[0][column - 1] > board[0][column]) {
+      monotonicityTop += Math.pow(
+        board[0][column],
+        HEURISTIC_FACTOR_MONOTONICITY_POWER
+      );
+    }
+  }
+  let monotonicityLeft = 0;
+  for (let column = 0; column < board[0].length; column++) {
+    if (column === 0 || board[0][column - 1] > board[0][column]) {
+      monotonicityLeft += Math.pow(
+        board[0][column],
+        HEURISTIC_FACTOR_MONOTONICITY_POWER
+      );
+    }
+  }
+  const monotonicity = Math.max(monotonicityTop, monotonicityLeft);
+
+  const sum = board.reduce(
+    (prevTotal: number, currentRow: Array<number>) =>
+      prevTotal +
+      currentRow.reduce(
+        (prevRowTotal: number, tile: number) =>
+          prevRowTotal + Math.pow(tile, HEURISTIC_FACTOR_SUM_POWER),
+        0
+      ),
+    0
+  );
+
+  // const merges;
+
+  const emptyTiles = getEmptyTilesCount({ board });
+
+  return (
+    HEURISTIC_FACTOR_LOST_PENALTY * hasLost +
+    HEURISTIC_FACTOR_MONOTONICITY_WEIGHT * monotonicity +
+    HEURISTIC_FACTOR_SUM_WEIGHT * sum +
+    HEURISTIC_FACTOR_EMPTY_WEIGHT * emptyTiles
+  );
 };
 
 module.exports = scoreBoard;
