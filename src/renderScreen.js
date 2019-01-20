@@ -17,7 +17,8 @@ const renderScreen = ({ board, AISpeed, possibleShifts }: OptionsType) => {
     AISpeed > 0
       ? "Press 0 to deactivate the AI."
       : "Press 1-9 to activate the AI. " +
-          "The number will determine how fast the AI plays the game."
+          "The number will determine how fast the AI plays the game.\n" +
+          "Press P to have the AI play one turn."
   );
 
   if (!process.env.DEBUG) {

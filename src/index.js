@@ -5,6 +5,7 @@ const keypress = require("keypress");
 const generateBoard = require("./generateBoard");
 const getPossibleShifts = require("./getPossibleShifts");
 const activateAI = require("./ai/activateAI");
+const getBestPossibleMove = require("./ai/getBestPossibleMove");
 const addNewTileToBoard = require("./addNewTileToBoard");
 const playTurn = require("./playTurn");
 
@@ -41,6 +42,10 @@ process.stdin.on(
       }
 
       return;
+    } else if (AISpeed === 0 && key && key.name === "p") {
+      const possibleShifts = getPossibleShifts(board);
+      const shiftDirection = getBestPossibleMove({ board, possibleShifts });
+      playTurn({ board, possibleShifts, speed: 0, shiftDirection });
     }
 
     if (char && /^[1-9]$/.test(char)) {
