@@ -2,7 +2,9 @@
   "extends": [
     "walmart/configurations/es6-node",
     "prettier",
-    "plugin:import-order/recommended"
+    "plugin:import-order/recommended",
+    "plugin:flowtype/recommended",
+    "plugin:jest/recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
@@ -61,6 +63,9 @@
       "files": ["src/**/*.spec.js", "**/setupTests.js"],
       "env": {
         "jest": true
+      },
+      "rules": {
+        "filenames/match-regex": 0
       }
     }
   ]
