@@ -4,9 +4,10 @@ const {
   HEURISTIC_FACTOR_LOST_PENALTY,
   HEURISTIC_FACTOR_MONOTONICITY_POWER,
   HEURISTIC_FACTOR_MONOTONICITY_WEIGHT,
+  HEURISTIC_FACTOR_MONOTONICITY_REDUCTION_IF_AT_RISK,
   HEURISTIC_FACTOR_SUM_POWER,
   HEURISTIC_FACTOR_SUM_WEIGHT,
-  HEURISTIC_FACTOR_MERGES_WEIGHT,
+  // HEURISTIC_FACTOR_MERGES_WEIGHT,
   HEURISTIC_FACTOR_EMPTY_WEIGHT
 } = require("../config");
 const getPossibleShifts = require("../getPossibleShifts");
@@ -17,7 +18,8 @@ type OptionsType = {
 };
 
 const scoreBoard = ({ board }: OptionsType): number => {
-  const hasLost = getPossibleShifts(board).length > 0 ? 0 : 1;
+  const possibleShifts = getPossibleShifts(board);
+  const hasLost = possibleShifts.length > 0 ? 0 : 1;
 
   let monotonicityTop = 0;
   for (let column = 0; column < board[0].length; column++) {
@@ -37,7 +39,14 @@ const scoreBoard = ({ board }: OptionsType): number => {
       );
     }
   }
-  const monotonicity = Math.max(monotonicityTop, monotonicityLeft);
+  const monotonicityAtRisk =
+    !possibleShifts.includes("left") && !possibleShifts.includes("top");
+  const monotonicity =
+    Math.max(monotonicityTop, monotonicityLeft) *
+    (1 -
+      (monotonicityAtRisk
+        ? HEURISTIC_FACTOR_MONOTONICITY_REDUCTION_IF_AT_RISK
+        : 0));
 
   const sum = board.reduce(
     (prevTotal: number, currentRow: Array<number>) =>
