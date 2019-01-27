@@ -65,7 +65,8 @@
         "jest": true
       },
       "rules": {
-        "filenames/match-regex": 0
+        "filenames/match-regex": 0,
+        "no-magic-numbers": 0
       }
     }
   ]

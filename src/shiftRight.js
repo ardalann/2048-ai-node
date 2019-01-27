@@ -9,6 +9,7 @@ const shiftRight = (board: Array<Array<number>>) => {
       if (row[colIndex - 1] === row[colIndex]) {
         row[colIndex] *= 2;
         row.splice(colIndex - 1, 1);
+        colIndex--;
       }
     }
     if (board[rowIndex].length < cols) {
