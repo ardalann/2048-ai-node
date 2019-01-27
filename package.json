@@ -52,10 +52,10 @@
     "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.0",
-    "@babel/core": "^7.2.0",
-    "@babel/node": "^7.2.0",
-    "@babel/preset-env": "^7.2.3",
+    "@babel/cli": "^7.2.3",
+    "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.3.1",
     "@babel/preset-flow": "^7.0.0",
     "@versett/versett-devtools": "^1.9.0",
     "babel-eslint": "^10.0.1",
@@ -69,7 +69,7 @@
     "eslint-plugin-prettier": "^3.0.0",
     "flow-bin": "^0.87.0",
     "flow-copy-source": "^2.0.2",
-    "jest": "^23.4.1",
+    "jest": "^24.0.0",
     "prettier": "^1.5.2",
     "rimraf": "^2.6.1"
   },
