@@ -70,7 +70,10 @@ const scorePossibleMove = ({
     }
   }
 
-  return scores.reduce((total: number, score: number) => total + score, 0);
+  return (
+    scores.reduce((total: number, score: number) => total + score, 0) /
+    scores.length
+  );
 };
 
 module.exports = scorePossibleMove;
