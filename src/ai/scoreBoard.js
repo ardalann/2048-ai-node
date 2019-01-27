@@ -54,12 +54,23 @@ const scoreBoard = ({ board }: OptionsType): number => {
 
   const emptyTiles = getEmptyTilesCount({ board });
 
-  return (
+  const score =
     HEURISTIC_FACTOR_LOST_PENALTY * hasLost +
     HEURISTIC_FACTOR_MONOTONICITY_WEIGHT * monotonicity +
     HEURISTIC_FACTOR_SUM_WEIGHT * sum +
-    HEURISTIC_FACTOR_EMPTY_WEIGHT * emptyTiles
-  );
+    HEURISTIC_FACTOR_EMPTY_WEIGHT * emptyTiles;
+
+  if (process.env.DEBUG) {
+    console.log("scoreBoard\n", board.join("\n"), {
+      score,
+      hasLost,
+      monotonicity,
+      sum,
+      emptyTiles
+    });
+  }
+
+  return score;
 };
 
 module.exports = scoreBoard;

@@ -35,6 +35,10 @@ const getBestPossibleMove = ({
       shiftB.s - shiftA.s
   );
 
+  if (process.env.DEBUG) {
+    console.log("getBestPossibleMove->sortedShiftsScores", sortedShiftsScores);
+  }
+
   return sortedShiftsScores[0].d;
 };
 
