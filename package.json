@@ -67,7 +67,7 @@
     "eslint-plugin-import-order": "^2.1.4",
     "eslint-plugin-jest": "^22.1.2",
     "eslint-plugin-prettier": "^3.0.0",
-    "flow-bin": "^0.87.0",
+    "flow-bin": "^0.102.0",
     "flow-copy-source": "^2.0.2",
     "jest": "^24.0.0",
     "prettier": "^1.5.2",
