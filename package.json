@@ -58,7 +58,7 @@
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-flow": "^7.0.0",
     "@versett/versett-devtools": "^1.9.0",
-    "babel-eslint": "^10.0.1",
+    "babel-eslint": "^10.0.2",
     "eslint": "^5.9.0",
     "eslint-config-prettier": "^3.3.0",
     "eslint-config-walmart": "^2.2.1",
